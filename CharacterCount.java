@@ -1,32 +1,41 @@
 package com.company;
-
 import java.util.*;
 import java.lang.*;
+import java.util.logging.Logger;
 
 
 public class CharacterCount {
-    public static int[] characterCount(String input) {
-        int []atozArray = new int[26];
-        input = input.toLowerCase();     //changes all letters in string to lower case
-        for(int i = 0 ; i < input.length() ; i++) {
-            atozArray[input.charAt(i) - 97] += 1;
+    // storing the count of each alphabet in an array
+    public static int[] characterCount(String inputString) {
+        int []alphabetsArray = new int[26];
+        String stringLowerCase = inputString.toLowerCase();           //changes all letters in string to same case as it is case-insensitive
+        for(int i = 0 ; i < stringLowerCase.length() ; i++) {
+            if(Character.isLetter(stringLowerCase.charAt(i))) {
+                alphabetsArray[stringLowerCase.charAt(i) - 97] += 1;  // subtracting 97 from every character's ascii value so that the value of a is 0, b is 1 so on.
+            }
         }
-        return atozArray;
+        return alphabetsArray;
     }
-    public static boolean containsAllLetters(int []array) {
-        for (int value : array) {
-            if (value < 1)
+    //checking whether string contains all letters of alphabets
+    public static boolean containsAllLetters(String inputString) {
+        int []alphabetsArray = characterCount(inputString);
+        for (int count : alphabetsArray) {
+            if (count < 1)                                           // returns false if the count is zero
                 return false;
         }
         return true;
     }
-    public static void main(String []args) {
+    public static void main(String []args) throws Exception {
+        TestCharacterCount testcharactercount = new TestCharacterCount();
+        testcharactercount.test();
         Scanner sc = new Scanner(System.in);
-        String input = sc.next();
-        if(containsAllLetters(characterCount(input)))
-            System.out.println("Contain all alphabets");
+        Logger LOGGER = Logger.getAnonymousLogger();
+        String inputString = sc.next();
+
+        if(containsAllLetters(inputString))
+            LOGGER.info("Contain all alphabets");
         else
-            System.out.println("Doesn't contain all alphabets");
+            LOGGER.info("Doesn't contain all alphabets");
     }
 }
 
