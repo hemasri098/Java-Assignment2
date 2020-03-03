@@ -25,17 +25,21 @@ public class CharacterCount {
         }
         return true;
     }
-    public static void main(String []args) throws Exception {
-        TestCharacterCount testcharactercount = new TestCharacterCount();
-        testcharactercount.test();
-        Scanner sc = new Scanner(System.in);
+    public static void main(String []args) {
         Logger LOGGER = Logger.getAnonymousLogger();
-        String inputString = sc.next();
-
-        if(containsAllLetters(inputString))
-            LOGGER.info("Contain all alphabets");
-        else
-            LOGGER.info("Doesn't contain all alphabets");
+        try {
+            TestCharacterCount testcharactercount = new TestCharacterCount();
+            testcharactercount.test();
+            Scanner sc = new Scanner(System.in);
+            String inputString = sc.next();
+            if(containsAllLetters(inputString))
+                LOGGER.info("Contain all alphabets");
+            else
+                LOGGER.info("Doesn't contain all alphabets");
+        }
+        catch(Exception e) {
+            LOGGER.info("Exception" + e);
+        }
     }
 }
 
